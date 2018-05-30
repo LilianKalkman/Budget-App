@@ -87,7 +87,19 @@ var UIcontroller = (function(){
       newHtml = newHtml.replace('%value%', obj.value);
 
       element.insertAdjacentHTML('beforeend', newHtml);
+    },
+    clearFields: function(){
+      var fields, fieldsArray;
 
+      fields = document.querySelectorAll('.add__description, .add__value');
+      fieldsArray = Array.prototype.slice.call(fields);
+
+      fieldsArray.forEach(function(el){
+        el.value = " ";
+      });
+
+      fieldsArray[0].focus();
+      console.log(fields,fieldsArray);
     }
   }
 
@@ -121,6 +133,7 @@ var controller = (function(DataCtrl, UIctrl){
 
     // 3. add item to UI
     UIctrl.addItem(newItem, input.type);
+    UIctrl.clearFields();
 
     // 4. calculate new budget
 
