@@ -73,9 +73,9 @@ var UIcontroller = (function(){
     incomeContainer: '.income__list',
     expensesContainer: '.expenses__list',
     budget: '.budget__value',
-    totalIncome: 'budget__income--value',
-    totalExpenses: 'budget__expenses--value',
-    expPercentage: 'budget__expenses--percentage'
+    totalIncome: '.budget__income--value',
+    totalExpenses: '.budget__expenses--value',
+    expPercentage: '.budget__expenses--percentage'
   }
   return {
     getInput: function(){
@@ -131,7 +131,7 @@ var UIcontroller = (function(){
       return contentI;
     },
     displayTotalExpenses: function(e){
-      var contentE = document.querySelector(DOMstrings.totalIncome).textContent = '-' + e;
+      var contentE = document.querySelector(DOMstrings.totalExpenses).textContent = '-' + e;
       return contentE;
     }
   }
