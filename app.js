@@ -65,7 +65,7 @@ var dataController = (function(){
       var percentage, p;
       percentage = (data.totals.exp * 100) / data.totals.inc;
       p = Math.round((percentage + 0.00001) * 100) / 100;
-      return p;
+      return percentage;
     },
     deleteItem: function(itemId, type, value){
       console.log(value);
