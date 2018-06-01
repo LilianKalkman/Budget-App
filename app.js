@@ -93,6 +93,7 @@ var dataController = (function(){
 // UI CONTROLLER
 var UIcontroller = (function(){
   var DOMstrings = {
+    month: '.budget__title--month',
     inputType: '.add__type',
     inputDescription: '.add__description',
     inputValue: '.add__value',
@@ -107,6 +108,16 @@ var UIcontroller = (function(){
     container: '.container'
   }
   return {
+    displayMonth: function(){
+      var month, monthText;
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var m = new Date().getMonth();
+      console.log(m);
+      month = 'Month';
+      monthText = document.querySelector(DOMstrings.month).textContent = months[m];
+      console.log('month calculation');
+      return monthText;
+    },
     getInput: function(){
       return {
         type: document.querySelector(DOMstrings.inputType).value,
@@ -263,6 +274,7 @@ var controller = (function(DataCtrl, UIctrl){
       UIctrl.displayTotalExpenses(0);
       UIctrl.displayPercentage(0);
       setupEventListeners();
+      UIctrl.displayMonth();
     }
   }
 
