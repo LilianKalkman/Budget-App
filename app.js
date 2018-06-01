@@ -128,6 +128,9 @@ var UIcontroller = (function(){
 
       element.insertAdjacentHTML('beforeend', newHtml);
     },
+    deleteItem: function(list){
+      list.remove();
+    },
     clearFields: function(){
       var fields, fieldsArray;
 
@@ -225,7 +228,7 @@ var controller = (function(DataCtrl, UIctrl){
   };
 
   var ctrlDeleteItem = function(event){
-    var itemID, splitID,type, ID;
+    var itemID, splitID, type, ID;
     itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
     if(itemID){
       splitID = itemID.split('-');
@@ -237,7 +240,7 @@ var controller = (function(DataCtrl, UIctrl){
     // delete item from data
     DataCtrl.deleteItem(ID, type);
     // deleting data from UI
-
+    UIctrl.deleteItem(event.target.parentNode.parentNode.parentNode.parentNode);
     // update and show new budget
   };
 
