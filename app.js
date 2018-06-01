@@ -67,16 +67,22 @@ var dataController = (function(){
       p = Math.round((percentage + 0.00001) * 100) / 100;
       return p;
     },
-    deleteItem: function(itemId, type){
+    deleteItem: function(itemId, type, value){
+      console.log(value);
       var ids, index;
       ids = data.allItems[type].map(function(i){
         return i.id;
       });
+      // ook totals updaten!!
       index = ids.indexOf(itemId);
       if(index !== -1){
         data.allItems[type].splice(index, 1);
       };
-      console.log(data.allItems[type]);
+      if(type === 'inc'){
+        data.totals.inc -= value;
+      } else if (type === 'exp') {
+        data.totals.exp -= value;
+      };
     },
     getData: data
   };
@@ -128,8 +134,9 @@ var UIcontroller = (function(){
 
       element.insertAdjacentHTML('beforeend', newHtml);
     },
-    deleteItem: function(list){
-      list.remove();
+    deleteItem: function(itemID){
+      var element = document.getElementById(itemID);
+      element.parentNode.removeChild(element);
     },
     clearFields: function(){
       var fields, fieldsArray;
@@ -145,7 +152,7 @@ var UIcontroller = (function(){
     },
     displayBudget: function(b){
       var budgetText;
-      if(b > 0){
+      if(b >= 0){
         budgetText = document.querySelector(DOMstrings.budget).textContent = '+' + b;
       } else {
         budgetText = document.querySelector(DOMstrings.budget).textContent = b;
@@ -163,7 +170,7 @@ var UIcontroller = (function(){
     },
     displayPercentage: function(p){
       var contentP = document.querySelector(DOMstrings.expPercentage).textContent = p + '%';
-    }
+    },
   }
 
 })();
@@ -228,20 +235,25 @@ var controller = (function(DataCtrl, UIctrl){
   };
 
   var ctrlDeleteItem = function(event){
-    var itemID, splitID, type, ID;
+    var itemID, splitID, type, ID, itemValue;
     itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
     if(itemID){
       splitID = itemID.split('-');
       type = splitID[0];
       ID = parseInt(splitID[1]);
-      console.log(type, ID);
+      if(type === 'inc'){
+        itemValue = event.target.parentNode.parentNode.parentNode.textContent;
+      } else if (type === 'exp') {
+        itemValue = event.target.parentNode.parentNode.parentNode.firstChild.textContent;
+      };
     }
-
+    console.log(itemValue);
     // delete item from data
-    DataCtrl.deleteItem(ID, type);
+    DataCtrl.deleteItem(ID, type, itemValue);
     // deleting data from UI
-    UIctrl.deleteItem(event.target.parentNode.parentNode.parentNode.parentNode);
+    UIctrl.deleteItem(itemID);
     // update and show new budget
+    updateBudget();
   };
 
   return {
