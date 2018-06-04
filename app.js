@@ -64,8 +64,9 @@ var dataController = (function(){
     getExpPercentage: function(){
       var percentage, p;
       percentage = (data.totals.exp * 100) / data.totals.inc;
-      p = Math.round((percentage + 0.00001) * 100) / 100;
-      return percentage;
+      p = percentage.toFixed(0);
+      // p = Math.round((percentage + 0.00001) * 100) / 100;
+      return p;
     },
     deleteItem: function(itemId, type, value){
       console.log(value);
@@ -106,7 +107,27 @@ var UIcontroller = (function(){
     expPercentage: '.budget__expenses--percentage',
     itemPercentage: '.item__percentage',
     container: '.container'
-  }
+  };
+
+  var formatNum = function(num, type){
+    var numSplit, int, dec, formattedNumber;
+
+    num = num.toFixed(2);
+
+    numSplit = num.split('.');
+    int = numSplit[0];
+    dec = numSplit[1];
+
+    if(int.length > 3){
+      int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3) + '.';
+      formattedNumber = (type === 'exp' ? '-' : '+') + ' ' + int + dec;
+    } else {
+      formattedNumber = (type === 'exp' ? '-' : '+') + int + ',' + dec;
+    };
+
+    return formattedNumber;
+  };
+
   return {
     displayMonth: function(){
       var month, monthText;
@@ -140,7 +161,7 @@ var UIcontroller = (function(){
 
       newHtml = html.replace('%id%', obj.id);
       newHtml = newHtml.replace('%description%', obj.description);
-      newHtml = newHtml.replace('%value%', obj.value);
+      newHtml = newHtml.replace('%value%', formatNum(obj.value, type));
       newHtml = newHtml.replace('%item-percentage%', perc);
 
       element.insertAdjacentHTML('beforeend', newHtml);
@@ -162,21 +183,18 @@ var UIcontroller = (function(){
       fieldsArray[0].focus();
     },
     displayBudget: function(b){
-      var budgetText;
-      if(b >= 0){
-        budgetText = document.querySelector(DOMstrings.budget).textContent = '+' + b;
-      } else {
-        budgetText = document.querySelector(DOMstrings.budget).textContent = b;
-      };
+      var type;
+      b > 0 ? type = 'inc' : type = 'exp';
+      var budgetText = document.querySelector(DOMstrings.budget).textContent = formatNum(b, type);
       return budgetText;
     },
     displayTotalIncome: function(i){
       var contentI;
-      contentI = document.querySelector(DOMstrings.totalIncome).textContent = '+' + i;
+      contentI = document.querySelector(DOMstrings.totalIncome).textContent = formatNum(i, 'inc');
       return contentI;
     },
     displayTotalExpenses: function(e){
-      var contentE = document.querySelector(DOMstrings.totalExpenses).textContent = '-' + e;
+      var contentE = document.querySelector(DOMstrings.totalExpenses).textContent = formatNum(e, 'exp');
       return contentE;
     },
     displayPercentage: function(p){
@@ -229,6 +247,9 @@ var controller = (function(DataCtrl, UIctrl){
       if(input.type === 'exp'){
         percentageItem = DataCtrl.calculateItemPercentage(input.value);
         percentageItem = Math.round((percentageItem + 0.00001) * 100) / 100;
+        if(percentageItem < 0){
+          percentageItem = '--';
+        };
       };
 
       // 3. add item to UI
