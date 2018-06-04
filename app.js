@@ -62,11 +62,10 @@ var dataController = (function(){
       return percentage;
     },
     getExpPercentage: function(){
-      var percentage, p;
+      var percentage;
       percentage = (data.totals.exp * 100) / data.totals.inc;
-      p = percentage.toFixed(0);
       // p = Math.round((percentage + 0.00001) * 100) / 100;
-      return p;
+      return percentage;
     },
     deleteItem: function(itemId, type, value){
       console.log(value);
@@ -198,7 +197,7 @@ var UIcontroller = (function(){
       return contentE;
     },
     displayPercentage: function(p){
-      var contentP = document.querySelector(DOMstrings.expPercentage).textContent = p + '%';
+      var contentP = document.querySelector(DOMstrings.expPercentage).textContent = p.toFixed(0) + '%';
     },
   }
 
@@ -209,6 +208,12 @@ var UIcontroller = (function(){
 var controller = (function(DataCtrl, UIctrl){
   var setupEventListeners = function(){
     var DOM = UIctrl.getDOMstrings();
+
+    document.querySelector(DOM.inputType).addEventListener('change', function(event){
+      this.classList.toggle('redd');
+      document.querySelector(DOM.inputDescription).classList.toggle('redd');
+      document.querySelector(DOM.inputValue).classList.toggle('redd');
+    });
 
     document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
 

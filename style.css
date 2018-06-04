@@ -6,6 +6,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: rgb(68, 68, 66);
+    color: white;
 }
 
 .clearfix::after {
@@ -15,15 +17,19 @@
 }
 
 body {
-    color: #555;
+    color: white;
     font-family: Open Sans;
     font-size: 16px;
     position: relative;
     height: 100vh;
     font-weight: 400;
+    background-color: rgb(68, 68, 66);
 }
 
-.right { float: right; }
+.right {
+  float: right;
+  background-color: inherit;
+ }
 .red { color: #FF5049 !important; }
 .red-focus:focus { border: 1px solid #FF5049 !important; }
 
@@ -33,7 +39,7 @@ body {
 
 .top {
     height: 40vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(money.jpg);
     background-size: cover;
     background-position: center;
     position: relative;
@@ -45,7 +51,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
+    padding: 10px;
+    color: rgb(68, 68, 66, 0.5);
+    background-color: rgb(68, 68, 66, 0.5);
+    /* color: #fff; */
 }
 
 .budget__title {
@@ -53,6 +62,7 @@ body {
     text-align: center;
     margin-bottom: 10px;
     font-weight: 300;
+    background-color: rgb(68, 68, 66, 0.7);
 }
 
 .budget__value {
@@ -61,6 +71,8 @@ body {
     text-align: center;
     margin-bottom: 25px;
     letter-spacing: 2px;
+    background-color: rgb(68, 68, 66, 0.7);
+    border-radius: 80%;
 }
 
 .budget__income,
@@ -82,7 +94,8 @@ body {
 .budget__expenses--text {
     float: left;
     font-size: 13px;
-    color: #444;
+    color: white;
+    background-color: inherit;
     margin-top: 2px;
 }
 
@@ -90,6 +103,8 @@ body {
 .budget__expenses--value {
     letter-spacing: 1px;
     float: left;
+    color: inherit;
+    background-color: inherit;
 }
 
 .budget__income--percentage,
@@ -99,6 +114,7 @@ body {
     font-size: 11px;
     padding: 3px 0;
     margin-left: 10px;
+    background-color: inherit;
 }
 
 .budget__expenses--percentage {
@@ -114,9 +130,9 @@ body {
 
 /***** FORM *****/
 .add {
-    padding: 14px;
-    border-bottom: 1px solid #e7e7e7;
-    background-color: #f7f7f7;
+    padding: 20px;
+    border-bottom: 1px solid rgb(68, 68, 66);
+    background-color: rgb(68, 68, 66);
 }
 
 .add__container {
@@ -126,10 +142,10 @@ body {
 
 .add__type {
     width: 55px;
-    border: 1px solid #e7e7e7;
+    border: 3px solid #e7e7e7;
     height: 44px;
     font-size: 18px;
-    color: inherit;
+    color: rgb(68, 68, 66);
     background-color: #fff;
     margin-right: 10px;
     font-weight: 300;
@@ -138,9 +154,9 @@ body {
 
 .add__description,
 .add__value {
-    border: 1px solid #e7e7e7;
+    border: 2px solid #e7e7e7;
     background-color: #fff;
-    color: inherit;
+    color: rgb(68, 68, 66);
     font-family: inherit;
     font-size: 14px;
     padding: 12px 15px;
@@ -170,10 +186,15 @@ body {
 .add__description:focus,
 .add__value:focus {
     outline: none;
-    border: 1px solid #28B9B5;
+    border: 4px solid #28B9B5;
 }
 
 .add__btn:focus { outline: none; }
+
+.redd:focus {
+  outline: none;
+  border: 4px solid rgb(244, 78, 41);
+}
 
 /***** LISTS *****/
 .container {
@@ -208,7 +229,7 @@ h2 {
 }
 
 .item:first-child { border-top: 1px solid #e7e7e7; }
-.item:nth-child(even) { background-color: #f7f7f7; }
+/* .item:nth-child(even) { background-color: #f7f7f7; } */
 
 .item__description {
     float: left;
@@ -224,7 +245,7 @@ h2 {
     margin-left: 20px;
     transition: transform 0.3s;
     font-size: 11px;
-    background-color: #FFDAD9;
+    background-color: inherit;
     padding: 3px;
     border-radius: 3px;
     width: 32px;
