@@ -68,7 +68,7 @@ var dataController = (function(){
       return percentage;
     },
     deleteItem: function(itemId, type, value){
-      console.log(value);
+      // console.log(value);
       var ids, index;
       ids = data.allItems[type].map(function(i){
         return i.id;
@@ -132,10 +132,10 @@ var UIcontroller = (function(){
       var month, monthText;
       var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       var m = new Date().getMonth();
-      console.log(m);
+      // console.log(m);
       month = 'Month';
       monthText = document.querySelector(DOMstrings.month).textContent = months[m];
-      console.log('month calculation');
+      // console.log('month calculation');
       return monthText;
     },
     getInput: function(){
@@ -284,7 +284,7 @@ var controller = (function(DataCtrl, UIctrl){
         itemValue = event.target.parentNode.parentNode.parentNode.firstChild.textContent;
       };
     }
-    console.log(itemValue);
+    // console.log(itemValue);
     // delete item from data
     DataCtrl.deleteItem(ID, type, itemValue);
     // deleting data from UI
